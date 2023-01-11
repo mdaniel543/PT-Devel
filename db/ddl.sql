@@ -53,3 +53,10 @@ CREATE TABLE respuesta
 
 
 INSERT INTO usuario (email, password) VALUES ('correo@gmail.com', '1234');
+
+Insert into tipo(nombre) values ('text');
+
+Insert into tipo(nombre) values ('date');
+
+Insert into tipo(nombre) values ('number');
+
