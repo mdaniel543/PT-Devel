@@ -29,7 +29,7 @@ export const apiEncuesta = createApi({
         }),
         putEncuesta: builder.mutation({
             query: (body) => ({
-                url: `/${body.id}`,
+                url: `/${body.idEncuesta}`,
                 method: "PUT",
                 body,
             }),

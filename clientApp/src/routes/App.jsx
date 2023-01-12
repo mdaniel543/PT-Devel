@@ -9,17 +9,17 @@ import RespEnc from "./public/RespEnc";
 
 function App() {
   const isAuth = useSelector((state) => state.sesion.sesion);
-  const { Id } = useSelector((state) => state.sesion.usuario);
+  const user = useSelector((state) => state.sesion.usuario);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isAuth ? <AppAdmin id={Id} /> : <Home />} />
+        <Route path="/" element={isAuth ? <AppAdmin id={user?.Id} /> : <Home />} />
         <Route path="/encuesta/:id" element={<RespEnc />} />
         <Route
           path="/admin/*"
           element={
             <ProtectedRoute isAllowed={!!isAuth}>
-              <AppAdmin id={Id} />
+              <AppAdmin id={user?.Id} />
             </ProtectedRoute>
           }
         />

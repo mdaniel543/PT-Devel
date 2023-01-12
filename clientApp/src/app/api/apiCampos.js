@@ -35,6 +35,7 @@ export const apiCampos = createApi({
                 url: `/${id}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ["Campos"]
         }),
     }),
 });

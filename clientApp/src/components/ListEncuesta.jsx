@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Button, TextField } from "@mui/material";
-
+import { Box, Button, TextField, IconButton } from "@mui/material";
+import { useDeleteEncuestaMutation } from "../app/api/apiEncuesta";
 import Header from "./Header";
 import Swal from "sweetalert2";
-
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,11 +14,17 @@ import TableRow from "@mui/material/TableRow";
 import LinkIcon from "@mui/icons-material/Link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import { setEncuesta } from "../app/slices/selectEncuesta";
+import { useNavigate } from "react-router-dom";
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 const ListEncuesta = ({ data = [] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const dispatch = useDispatch()
+  const [deleteEncuesta] = useDeleteEncuestaMutation();
+  const navigate = useNavigate();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -32,6 +37,7 @@ const ListEncuesta = ({ data = [] }) => {
   const columns = [
     { id: "nombre", label: "Nombre", minWidth: 140 },
     { id: "descripcion", label: "Descripcion", minWidth: 170 },
+    { id: "respuestas", label: "Respuestas", minWidth: 50 },
     { id: "link", label: "Link", minWidth: 50 },
     { id: "edit", label: "Editar", minWidth: 50 },
     { id: "delete", label: "Borrar", minWidth: 50 },
@@ -77,23 +83,98 @@ const ListEncuesta = ({ data = [] }) => {
                       if (column.id === "link") {
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <LinkIcon />
+                            <IconButton
+                              variant="contained"
+                              color="primary"
+                              size="small"
+                              disabled={!row["estado"]}
+                              style={{ marginRight: 16 }}
+                              onClick={() => {
+                                Swal.fire(
+                                  "Link:",
+                                  "http://localhost:5173/encuesta/" +
+                                    row["idEncuesta"]
+                                );
+                              }}
+                            >
+                              <LinkIcon />
+                            </IconButton>
+                          </TableCell>
+                        );
+                      } else if(column.id === "respuestas"){
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            <IconButton
+                              variant="contained"
+                              color="primary"
+                              size="small"
+                              disabled={!row["estado"]}
+                              style={{ marginRight: 16 }}
+                              onClick={() => {
+                                dispatch(setEncuesta(row));
+                                navigate("/admin/resEncuesta");
+                              }}
+                            >
+                              <CompareArrowsIcon />
+                            </IconButton>
                           </TableCell>
                         );
                       } else if (column.id === "edit") {
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <EditIcon />
+                            <IconButton
+                              variant="contained"
+                              color="primary"
+                              size="small"
+                              disabled={!row["estado"]}
+                              style={{ marginRight: 16 }}
+                              onClick={() => {
+                                dispatch(setEncuesta(row));
+                                navigate("/admin/editEncuesta");
+                              }}
+                            >
+                              <EditIcon />
+                            </IconButton>
                           </TableCell>
                         );
                       } else if (column.id === "delete") {
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <DeleteIcon />
+                            <IconButton
+                              variant="contained"
+                              color="primary"
+                              disabled={!row["estado"]}
+                              size="small"
+                              style={{ marginRight: 16 }}
+                              onClick={() => {
+                                Swal.fire({
+                                  title: "¿Estas seguro?",
+                                  text: "No podras revertir esta accion!",
+                                  icon: "warning",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "Si, eliminar!",
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    deleteEncuesta(row["idEncuesta"])
+                                      .unwrap()
+                                      .then(() => {
+                                        Swal.fire(
+                                          "Eliminado!",
+                                          "La encuesta se ha eliminado correctamente",
+                                          "success"
+                                        );
+                                      });
+                                  }
+                                });
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
                           </TableCell>
                         );
                       }
-
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {value}

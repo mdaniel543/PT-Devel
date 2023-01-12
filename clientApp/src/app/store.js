@@ -3,6 +3,7 @@ import { apiEncuesta } from "./api/apiEncuesta";
 import { apiCampos } from "./api/apiCampos";
 import { apiResp } from "./api/apiResp";
 import sesionSlice from "./slices/sesion";
+import encuestaSlice from "./slices/selectEncuesta";
 
 import {
   persistReducer,
@@ -27,6 +28,7 @@ const persistedReducer = persistReducer(persistConfig, sesionSlice);
 export const store = configureStore({
   reducer: {
     sesion: persistedReducer,
+    encuesta: encuestaSlice,
     [apiEncuesta.reducerPath]: apiEncuesta.reducer,
     [apiCampos.reducerPath]: apiCampos.reducer,
     [apiResp.reducerPath]: apiResp.reducer,

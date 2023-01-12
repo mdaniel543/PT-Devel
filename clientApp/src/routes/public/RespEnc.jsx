@@ -105,11 +105,16 @@ const RespEnc = () => {
                   key={campo.idCampo}
                   fullWidth
                   id={campo.idCampo}
-                  label={campo.titulo}
-                  onChange={handleChange}
+                  size="large"
+                  label={campo.titulo + " " + (campo.esRequerido ? "*" : "")}
                   InputLabelProps={{
+                    //colocar rojo la label si es requerido
                     shrink: true,
+                    sx: {
+                      color: campo.esRequerido ? "red" : undefined,
+                    } 
                   }}
+                  onChange={handleChange}
                   type={
                     campo.idTipo === 1
                       ? "text"

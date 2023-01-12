@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "./Header";
-import { usePostEncuestaMutation } from "../app/api/apiEncuesta";
+import { usePutEncuestaMutation } from "../app/api/apiEncuesta";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import Fab from "@mui/material/Fab";
@@ -12,19 +13,24 @@ import AddIcon from "@mui/icons-material/Add";
 import ModalCampo from "./AddCampos";
 import ControlledAccordions from "./ConAccordian";
 import { usePostCamposMutation } from "../app/api/apiCampos";
+import { useGetCamposQuery } from "../app/api/apiCampos";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 
-const initialValues = {
-  nombre: "",
-  descripcion: "",
-};
+const PutEncuesta = () => {
+  const navigate = useNavigate();
 
-const PostEncuesta = () => {
+  const initialValues = useSelector((state) => state.encuesta.encuesta);
+
+  const { data: camposExis = [] } = useGetCamposQuery(initialValues.idEncuesta);
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [postEncuesta, { isLoading }] = usePostEncuestaMutation();
+  const [putEncuesta] = usePutEncuestaMutation();
+
   const [campos, setCampos] = React.useState([]);
-  const [postCampos, { isLoading: isLoadingCampos }] = usePostCamposMutation();
+
+  const [postCampos] = usePostCamposMutation();
   const handleFormSubmit = async (values, onSubmitProps) => {
     Swal.fire({
       title: "Cargando",
@@ -40,37 +46,50 @@ const PostEncuesta = () => {
       },
     });
     setIsSubmitting(true);
-    await postEncuesta(values)
+    await putEncuesta(values)
       .unwrap()
       .then(async (res) => {
-       console.log(res)
-        await postCampos({ campos: campos, idEncuesta: res.id })
+        console.log(res);
+        if (campos.length === 0) {
+          Swal.fire({
+            title: "Encuesta Actualiza Correctamente",
+            text: "Ok",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+          setIsSubmitting(false);
+          window.location.reload();
+          navigate("/admin/showEncuesta");
+          return;
+        }
+        await postCampos({ campos: campos, idEncuesta: values.idEncuesta })
           .unwrap()
           .then((res) => {
-            // borrar los valores del formulario
             Swal.fire({
-              title: "Encuesta Creada",
-              text: "Link para responder la encuesta: http://localhost:5173/encuesta/" + res.id,
+              title: "Encuesta Actualiza Correctamente",
+              text: "Ok",
               icon: "success",
               confirmButtonText: "Ok",
             });
+            setIsSubmitting(false);
             setCampos([]);
-            onSubmitProps.resetForm();
+            window.location.reload();
+            navigate("/admin/showEncuesta");
           })
           .catch((err) => {
             Swal.fire({
               title: "Error",
-              text: "Ha ocurrido un error al crear la encuesta",
+              text: "Ha ocurrido un error al editar la encuesta",
               icon: "error",
               confirmButtonText: "Ok",
             });
           });
-          setIsSubmitting(false);
+        setIsSubmitting(false);
       })
       .catch((err) => {
         Swal.fire({
           title: "Error",
-          text: "Ha ocurrido un error al crear la encuesta",
+          text: "Ha ocurrido un error al editar la encuesta",
           icon: "error",
           confirmButtonText: "Ok",
         });
@@ -80,10 +99,20 @@ const PostEncuesta = () => {
 
   return (
     <Box m="20px" sx={{ marginTop: "-25px" }}>
+      <Box display="flex" justifyContent="right" sx={{ marginBottom: "-40px" }}>
+        <IconButton
+          onClick={() => {
+            navigate("/admin/showEncuesta");
+          }}
+        >
+          <CloseSharpIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <Header
-        title="Crear Encuesta"
-        subtitle="Crear una nueva encuesta con todo sus campos"
+        title="Editar Encuesta"
+        subtitle="Editar encuesta con todo sus campos"
       />
+
       <Formik
         initialValues={initialValues}
         onSubmit={handleFormSubmit}
@@ -135,6 +164,9 @@ const PostEncuesta = () => {
               />
             </Box>
             <Box justifyContent="center" mt="20px" style={{ width: "100%" }}>
+              <ControlledAccordions lista={camposExis} del={true} />
+            </Box>
+            <Box justifyContent="center" mt="20px" style={{ width: "100%" }}>
               <ControlledAccordions lista={campos} />
             </Box>
             <Box display="flex" justifyContent="center" mt="20px">
@@ -157,7 +189,7 @@ const PostEncuesta = () => {
                 variant="contained"
                 disabled={isSubmitting}
               >
-                Crear Nueva Encuesta
+                Editar Encuesta
               </Button>
             </Box>
           </form>
@@ -182,4 +214,4 @@ const checkoutSchema = yup.object().shape({
   descripcion: yup.string().required("Campo requerido"),
 });
 
-export default PostEncuesta;
+export default PutEncuesta;

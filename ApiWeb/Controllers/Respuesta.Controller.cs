@@ -26,7 +26,13 @@ namespace ApiWeb.Controllers
 
             if (!rToken.success) return BadRequest(rToken);
 
-            var respuestas = _context.Respuesta.Where(r => r.IdCampoNavigation.IdEncuesta == id).ToList();
+            var respuestas = _context.Respuesta.Where(r => r.IdCampoNavigation.IdEncuesta == id).Select(r => new
+            {
+                idCampo = r.IdCampo,
+                valor = r.Valor,
+                nombreCampo = r.IdCampoNavigation.Nombre,
+                tituloCampo = r.IdCampoNavigation.Titulo,
+            }).ToList();
 
             return Ok(respuestas);
         }
@@ -37,7 +43,7 @@ namespace ApiWeb.Controllers
             try
             {
                 var temp = JsonConvert.DeserializeObject<dynamic>(data.ToString());
-                
+
                 var respuestas = JsonConvert.DeserializeObject<List<dynamic>>(temp?.resps.ToString());
 
                 foreach (var res in respuestas)
