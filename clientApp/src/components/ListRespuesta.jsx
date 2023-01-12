@@ -52,8 +52,8 @@ const ListRespuesta = () => {
         </IconButton>
       </Box>
       <Header
-        title="Lista de Encuestas"
-        subtitle="Aqui aparaecen todas las encuestas creadas por el usuario"
+        title="Lista de Respuestas"
+        subtitle="Lista de Respuestas de la Encuesta"
       />
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
