@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "b0af4aad-1b99-4d8a-bcd9-3c2c8a2188f5",
+		"name": "PT-DEVEL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13112246"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"quez@gmail.com\",\r\n    \"password\": \"quez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Usuario",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Usuario",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Usuario/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Usuario",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get encuestas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiJlMTU2Y2ZhMy04YjJlLTQyNDAtYWZlOS0yN2E0Zjg3YThmMDUiLCJpYXQiOiIxMS8wMS8yMDIzIDIzOjQ1OjUxIiwiSWQiOiI2IiwiRW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY3MzQ4MjU1MSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MTY5IiwiYXVkIjoiKiJ9.vxIAafuAonUEOhy8p36jOoCXlrz-XNGp4sHWfeCj0cs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Encuesta/6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Encuesta",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar encuesta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiI0ZGJiNzMzOS01MTU2LTQ2MTktYWM1ZS04NDBhOTA5N2IyZTAiLCJpYXQiOiIxMS8wMS8yMDIzIDE6MzI6MjYiLCJJZCI6IjYiLCJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNjczNDAyNTQ2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcxNjkiLCJhdWQiOiIqIn0.bsvxpIAS5ZiKk2MmZVfCav5Jc5UoGflDpYf9QGxd96I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Prueba Nueva\",\r\n  \"descripcion\": \"bienvenido\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Encuesta/32",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Encuesta",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear encuesta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiI2NTdiZTBiNC05MzcwLTQ5MWQtOGFhYS1kZWVlYWM5ZTY1OGMiLCJpYXQiOiIxMS8wMS8yMDIzIDIyOjE0OjE0IiwiSWQiOiI2IiwiRW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY3MzQ3NzA1NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MTY5IiwiYXVkIjoiKiJ9._3DuyUk03CKLC2OToewKonqoHWoQ36ExK4H30Vg4S7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Holsdadaa\",\r\n  \"descripcion\": \"bienvenido\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Encuesta",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Encuesta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar encuesta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiI2NTdiZTBiNC05MzcwLTQ5MWQtOGFhYS1kZWVlYWM5ZTY1OGMiLCJpYXQiOiIxMS8wMS8yMDIzIDIyOjE0OjE0IiwiSWQiOiI2IiwiRW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY3MzQ3NzA1NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MTY5IiwiYXVkIjoiKiJ9._3DuyUk03CKLC2OToewKonqoHWoQ36ExK4H30Vg4S7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Encuesta/32",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Encuesta",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear campos de encuesta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiI2NTdiZTBiNC05MzcwLTQ5MWQtOGFhYS1kZWVlYWM5ZTY1OGMiLCJpYXQiOiIxMS8wMS8yMDIzIDIyOjE0OjE0IiwiSWQiOiI2IiwiRW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY3MzQ3NzA1NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MTY5IiwiYXVkIjoiKiJ9._3DuyUk03CKLC2OToewKonqoHWoQ36ExK4H30Vg4S7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idEncuesta\": 28,\r\n    \"campos\": [\r\n        {\r\n            \"idTipo\": 3,\r\n            \"nombre\": \"Edad\",\r\n            \"esRequerido\": false,\r\n            \"titulo\": \"Cual es tu edad?\"\r\n        },\r\n        {\r\n            \"idTipo\": 1,\r\n            \"nombre\": \"Apodo\",\r\n            \"esRequerido\": true,\r\n            \"titulo\": \"Cual es tu apodo?\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Campo",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Campo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get campos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiI2NTdiZTBiNC05MzcwLTQ5MWQtOGFhYS1kZWVlYWM5ZTY1OGMiLCJpYXQiOiIxMS8wMS8yMDIzIDIyOjE0OjE0IiwiSWQiOiI2IiwiRW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY3MzQ3NzA1NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MTY5IiwiYXVkIjoiKiJ9._3DuyUk03CKLC2OToewKonqoHWoQ36ExK4H30Vg4S7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Campo/31",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Campo",
+						"31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar campo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiIwZWQzOTNmOC0zMmY3LTQ5YjMtOGQ1ZC1iYTM3ODY3NTY2MDciLCJpYXQiOiIxMS8wMS8yMDIzIDM6MjY6MDYiLCJJZCI6IjYiLCJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNjczNDA5MzY2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcxNjkiLCJhdWQiOiIqIn0.WVGJPGhnlGLM_5PjVzXFvtfEJn7dG5GSCGrKwOn34k8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"idTipo\": 3,\r\n    \"nombre\": \"edad\",\r\n    \"esRequerido\": true,\r\n    \"titulo\": \"Cual es tu edad?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Campo/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Campo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear respuesta",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resps\":[\r\n        {\r\n            \"idCampo\": 3,\r\n            \"valor\": \"res 1\"\r\n        },\r\n        {\r\n            \"idCampo\": 4,\r\n            \"valor\": \"2023-10-12\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7169/Respuesta",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Respuesta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get respuesta by encuesta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiIyYzE5NWRjNS1hZmRiLTQyNWEtODEyNS1lODhmMjEwZTBmZWMiLCJpYXQiOiIxMS8wMS8yMDIzIDQ6MDI6NTQiLCJJZCI6IjYiLCJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNjczNDExNTc0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcxNjkiLCJhdWQiOiIqIn0.WEzN8pOgwwOBVDKCZAybli-_CYG6WkO_85Zdba5Qw0Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Respuesta/27",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Respuesta",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete campo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJBcGkiLCJqdGkiOiIyYzE5NWRjNS1hZmRiLTQyNWEtODEyNS1lODhmMjEwZTBmZWMiLCJpYXQiOiIxMS8wMS8yMDIzIDQ6MDI6NTQiLCJJZCI6IjYiLCJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNjczNDExNTc0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcxNjkiLCJhdWQiOiIqIn0.WEzN8pOgwwOBVDKCZAybli-_CYG6WkO_85Zdba5Qw0Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Campo/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Campo",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campos por encuesta",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7169/Encuesta/one/31",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7169",
+					"path": [
+						"Encuesta",
+						"one",
+						"31"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

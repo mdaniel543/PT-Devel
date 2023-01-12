@@ -36,16 +36,8 @@ namespace ApiWeb.Controllers
         {
             try
             {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-                var rToken = Jwt.validarToken(identity);
-
-                if (!rToken.success || rToken == null) return BadRequest(rToken);
-
                 var temp = JsonConvert.DeserializeObject<dynamic>(data.ToString());
-
-                // arreglo de campos 
-
+                
                 var respuestas = JsonConvert.DeserializeObject<List<dynamic>>(temp?.resps.ToString());
 
                 foreach (var res in respuestas)

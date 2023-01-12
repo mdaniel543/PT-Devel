@@ -28,6 +28,15 @@ namespace ApiWeb.Controllers
             return Ok(_context.Encuesta.ToList());
         }
 
+        [HttpGet("one/{id}", Name="GetEncuestaById")]
+        public IActionResult GetEncuestaByID(int id)
+        {
+            var encuesta = _context.Encuesta.Where(e => e.IdEncuesta == id).FirstOrDefault();
+
+            return Ok(encuesta);
+        }
+        
+
         [HttpGet("{id}", Name = "GetEncuestaByUsuario")]
         public IActionResult GetEncuesta(int id)
         {
@@ -73,7 +82,8 @@ namespace ApiWeb.Controllers
                 _context.Encuesta.Add(encuesta);
                 _context.SaveChanges();
 
-                return Ok(new { message = "Encuesta registrada con exito" });
+                // retorna mensaje y el id ingresado
+                return Ok(new { message = "Encuesta creada con exito", id = encuesta.IdEncuesta });
             }
             catch (Exception ex)
             {

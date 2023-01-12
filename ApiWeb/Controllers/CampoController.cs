@@ -19,11 +19,6 @@ namespace ApiWeb.Controllers
         [HttpGet("{id}", Name = "GetCamposByEncuesta")]
         public IActionResult GetCampos(int id)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var rToken = Jwt.validarToken(identity);
-
-            if (!rToken.success) return BadRequest(rToken);
 
             var campos = _context.Campos.Where(c => c.IdEncuesta == id).ToList();
 
